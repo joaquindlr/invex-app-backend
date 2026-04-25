@@ -12,7 +12,7 @@ services:
       POSTGRES_DB: ${DB_NAME}
       TZ: UTC # Forzamos a la BD a trabajar en UTC
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
       # Este script se ejecutará solo la primera vez para crear las tablas
