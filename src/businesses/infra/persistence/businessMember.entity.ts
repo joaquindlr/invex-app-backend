@@ -6,6 +6,7 @@ import {
   JoinColumn,
   CreateDateColumn,
 } from 'typeorm';
+import type { Relation } from 'typeorm';
 import { UserEntity } from '../../../users/infra/persistence/user.entity';
 import { BusinessEntity } from './business.entity';
 import { BusinessRole } from '../../domain/businessRole.enum';
@@ -21,7 +22,7 @@ export class BusinessMemberEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.memberships)
   @JoinColumn({ name: 'user_id' })
-  user: UserEntity;
+  user: Relation<UserEntity>;
 
   // --- RELACIÓN CON EMPRESA ---
   @Column({ name: 'business_id' })

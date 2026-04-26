@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
+import type { Relation } from 'typeorm';
 
 @Entity('users')
 export class UserEntity {
@@ -29,7 +30,7 @@ export class UserEntity {
   updatedAt: Date;
 
   @OneToMany(() => BusinessMemberEntity, (membership) => membership.user)
-  memberships: BusinessMemberEntity[];
+  memberships: Relation<BusinessMemberEntity>[];
 
   @Column({ default: 0 })
   maxAllowedBusinesses: number;

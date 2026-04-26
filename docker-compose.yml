@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   # Base de datos
@@ -12,23 +12,11 @@ services:
       POSTGRES_DB: ${DB_NAME}
       TZ: UTC # Forzamos a la BD a trabajar en UTC
     ports:
-      - "5433:5432"
+      - '5433:5432'
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
       # Este script se ejecutará solo la primera vez para crear las tablas
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-
-  # Interfaz gráfica para ver la BD (opcional pero recomendada)
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: stock_pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
 
 volumes:
   postgres_data:

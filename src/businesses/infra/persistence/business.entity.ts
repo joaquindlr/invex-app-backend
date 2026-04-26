@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
+import type { Relation } from 'typeorm';
 import { BusinessMemberEntity } from './businessMember.entity';
 import { ProductEntity } from 'src/products/infra/persistence/product.entity';
 
@@ -27,5 +28,5 @@ export class BusinessEntity {
   updatedAt: Date;
 
   @OneToMany(() => ProductEntity, (product) => product.business)
-  products: ProductEntity[];
+  products: Relation<ProductEntity>[];
 }

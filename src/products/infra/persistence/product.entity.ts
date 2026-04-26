@@ -3,11 +3,12 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  OneToMany, // 👈 Importamos esto
+  OneToMany,
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import type { Relation } from 'typeorm';
 import { BusinessEntity } from '../../../businesses/infra/persistence/business.entity';
 import { ProductVariantEntity } from './productVariant.entity';
 
@@ -27,12 +28,12 @@ export class ProductEntity {
 
   @ManyToOne(() => BusinessEntity, (business) => business.products)
   @JoinColumn({ name: 'business_id' })
-  business: BusinessEntity;
+  business: Relation<BusinessEntity>;
 
   @OneToMany(() => ProductVariantEntity, (variant) => variant.product, {
     cascade: true,
   })
-  variants: ProductVariantEntity[];
+  variants: Relation<ProductVariantEntity>[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

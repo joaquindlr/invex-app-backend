@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
   Unique,
 } from 'typeorm';
+import type { Relation } from 'typeorm';
 import { ProductEntity } from './product.entity';
 
 @Entity('product_variants')
@@ -38,7 +39,7 @@ export class ProductVariantEntity {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'product_id' })
-  product: ProductEntity;
+  product: Relation<ProductEntity>;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
