@@ -1,35 +1,14 @@
 import {
   IsNotEmpty,
   IsString,
-  IsNumber,
   IsOptional,
   IsArray,
   ValidateNested,
-  Min,
+  ArrayMinSize,
   IsUUID,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-
-export class CreateVariantDto {
-  @IsOptional()
-  @IsUUID()
-  id?: string;
-
-  @IsString()
-  @IsNotEmpty()
-  sku: string;
-
-  @IsNumber()
-  @Min(0)
-  price: number;
-
-  @IsNumber()
-  @Min(0)
-  stock: number;
-
-  @IsOptional()
-  attributes?: Record<string, any>;
-}
+import { CreateVariantDto } from './variant.dto';
 
 export class CreateProductDto {
   @IsUUID()
@@ -45,6 +24,7 @@ export class CreateProductDto {
   description?: string;
 
   @IsArray()
+  @ArrayMinSize(1)
   @ValidateNested({ each: true })
   @Type(() => CreateVariantDto)
   variants: CreateVariantDto[];
