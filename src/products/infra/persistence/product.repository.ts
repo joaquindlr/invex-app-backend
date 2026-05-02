@@ -19,13 +19,19 @@ export class ProductRepository {
     businessId: string,
     skip: number,
     limit: number,
+    categoryId?: string,
   ): Promise<{ products: ProductEntity[]; total: number }> {
+    const where: any = { businessId };
+    if (categoryId) {
+      where.categoryId = categoryId;
+    }
+
     const [products, total] = await this.repo.findAndCount({
-      where: { businessId },
+      where,
       order: { createdAt: 'DESC' },
       take: limit,
       skip: skip,
-      relations: ['variants'],
+      relations: ['variants', 'category'],
     });
 
     return { products, total };

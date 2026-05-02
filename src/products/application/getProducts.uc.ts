@@ -17,6 +17,7 @@ export class GetProductsUseCase {
     businessId: string,
     page: number,
     limit: number,
+    categoryId?: string,
   ) {
     const membership = await this.memberRepo.findOne({
       where: { userId, businessId },
@@ -34,6 +35,7 @@ export class GetProductsUseCase {
       businessId,
       skip,
       limit,
+      categoryId,
     );
 
     return {

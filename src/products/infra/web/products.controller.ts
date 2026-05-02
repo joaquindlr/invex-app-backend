@@ -46,6 +46,7 @@ export class ProductsController {
       query.businessId,
       query.page || 1,
       query.limit || 10,
+      query.categoryId,
     );
   }
 
