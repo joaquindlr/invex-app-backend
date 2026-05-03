@@ -49,5 +49,5 @@ export class ProductVariantEntity {
   updatedAt: Date;
 
   @DeleteDateColumn({ name: 'deleted_at' })
-  deletedAt?: Date;
+  deletedAt!: Date;
 }

@@ -19,7 +19,11 @@ import { GetProductsDto } from './getProducts.dto';
 import { UpdateProductUseCase } from 'src/products/application/updateProduct.uc';
 import { UpdateProductDto } from './updateProduct.dto';
 import { GetProductUseCase } from 'src/products/application/getProduct.uc';
+import { DeleteProductUseCase } from 'src/products/application/deleteProduct.uc';
+import { Delete, HttpCode } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('products')
 @Controller('products')
 @UseGuards(JwtAuthGuard)
 export class ProductsController {
@@ -28,6 +32,7 @@ export class ProductsController {
     private readonly getProductsUseCase: GetProductsUseCase,
     private readonly updateProductUseCase: UpdateProductUseCase,
     private readonly getProductUseCase: GetProductUseCase,
+    private readonly deleteProductUseCase: DeleteProductUseCase,
   ) {}
 
   @Post()
@@ -63,5 +68,16 @@ export class ProductsController {
   async findById(@Param('id') id: string, @Req() req: RequestWithUser) {
     const userId = req.user.userId;
     return this.getProductUseCase.execute(id, userId);
+  }
+
+  @Delete(':id/business/:businessId')
+  @ApiOperation({ summary: 'Eliminar producto lógicamente' })
+  @ApiResponse({ status: 200, description: 'Eliminado correctamente' })
+  @ApiResponse({ status: 400, description: 'Error por stock activo' })
+  async remove(
+    @Param('id') id: string,
+    @Param('businessId') businessId: string,
+  ) {
+    return this.deleteProductUseCase.execute(id, businessId);
   }
 }

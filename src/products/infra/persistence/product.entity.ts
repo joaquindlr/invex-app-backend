@@ -7,6 +7,7 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 import type { Relation } from 'typeorm';
 import { BusinessEntity } from '../../../businesses/infra/persistence/business.entity';
@@ -48,4 +49,7 @@ export class ProductEntity {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at' })
+  deletedAt!: Date;
 }

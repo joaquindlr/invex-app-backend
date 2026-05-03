@@ -13,6 +13,8 @@ import { GetProductUseCase } from './application/getProduct.uc';
 import { AddVariantUseCase } from './application/addVariant.uc';
 import { UpdateVariantUseCase } from './application/updateVariant.uc';
 import { DeleteVariantUseCase } from './application/deleteVariant.uc';
+import { DeleteProductUseCase } from './application/deleteProduct.uc';
+import { ProductTypeOrmRepository } from './infra/persistence/product.typeorm.repository';
 
 @Module({
   imports: [
@@ -29,6 +31,11 @@ import { DeleteVariantUseCase } from './application/deleteVariant.uc';
     AddVariantUseCase,
     UpdateVariantUseCase,
     DeleteVariantUseCase,
+    DeleteProductUseCase,
+    {
+      provide: 'I_PRODUCT_REPOSITORY',
+      useClass: ProductTypeOrmRepository,
+    },
   ],
 })
 export class ProductsModule {}

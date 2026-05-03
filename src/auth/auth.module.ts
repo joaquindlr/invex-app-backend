@@ -7,11 +7,13 @@ import { LoginUseCase } from './application/login.uc';
 import { TokenServicePort } from './application/ports/tokenService.port';
 import { JwtTokenServiceAdapter } from './infra/adapters/jwtTokenService.adapter';
 import { JwtStrategy } from './infra/strategies/jwt.strategie';
+import { GetMeUseCase } from './application/getMe.uc';
+import { BusinessesModule } from 'src/businesses/businesses.module';
 
 @Module({
   imports: [
     UsersModule,
-
+    BusinessesModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -24,6 +26,7 @@ import { JwtStrategy } from './infra/strategies/jwt.strategie';
   controllers: [AuthController],
   providers: [
     LoginUseCase,
+    GetMeUseCase,
     JwtStrategy,
     {
       provide: TokenServicePort,
